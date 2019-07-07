@@ -9,3 +9,11 @@
 
 :email: Email: 1058901869@qq.com
 
+:round_pushpin: ​Address: China
+
+
+
+## Repository title
+
+:closed_book: Title: PineconePi_Nano ​learning note
+
