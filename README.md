@@ -17,3 +17,11 @@
 
 :closed_book: Title: PineconePi_Nano ​learning note
 
+:hocho: Hardware: [Pinecone_Pi_Nano](http://www.pineconepi.cn/)
+
+:bookmark_tabs: Reference: https://github.com/PineconePi
+
+
+
+
+
