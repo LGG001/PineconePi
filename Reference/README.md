@@ -16,3 +16,9 @@
 
 :orange_book: STC8A8K64S4A12 Header file
 
+
+
+## Reference Manual
+
+:orange_book: STC8 Technical Reference Manual
+
