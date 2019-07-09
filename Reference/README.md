@@ -16,5 +16,4 @@
 
 ## Reference Manual
 
-:orange_book: [STC8 Technical Reference Manual]("Reference Manual"/STC8_Reference_Manual.pdf)
-
+:orange_book: STC8 Technical Reference Manual
