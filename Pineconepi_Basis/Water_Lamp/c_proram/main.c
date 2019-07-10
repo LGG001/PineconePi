@@ -41,7 +41,7 @@ void main()
 		do
 		{
 			P1 = ~temp;		
-			Delay_Ms(500);
+			Delay_Ms(100);
 		}while(temp <<= 1);
 		
 		temp = 0x01;
