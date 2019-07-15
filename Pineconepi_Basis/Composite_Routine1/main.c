@@ -1,4 +1,15 @@
+/**
+  ******************************************************************************
+  * @file    main.c 
+  * @author  LGG
+  * @version V1.0.0
+  * @date    15-July-2019
+  * @brief   Use key to control LED flashing in different ways.
+  ******************************************************************************
+  */ 
 
+
+/* Includes ------------------------------------------------------------------*/
 #include "PineconePinano.h"
 #include "button.h"
 #include "led.h"
@@ -7,6 +18,9 @@
 /* Define status */
 #define 	TRUE		1
 #define		FALSE		0
+
+#define 	ENABLE	1
+#define 	DISABLE	0
 
 
 /* Define correlation variables */
@@ -19,19 +33,25 @@ unsigned char flag_10ms = FALSE;
 unsigned char flag_100ms = FALSE;
 
 
+/* Define LED display mode */
+en_led_mode mode = LED_MODE_0;
+
+
+/* Declare function */
 void KEY_Process(key_value key_value);
 
 
-
-
-
-
+/**
+  * @brief  Main program.
+  * @param  None
+  * @retval None
+  */
 void main()
 {
 	key_value temp;
 	
-	KEY_Init();
-	LED_Init();
+	KEY_Init();	/* Initialize KEY */
+	LED_Init();	/* Initialize LED */
 	
 	/* Initialize TIMER0 */
 	TMOD = 0x00;
@@ -43,7 +63,7 @@ void main()
 	
 	while(1)
 	{
-		/* Handle 5ms event */
+		/* Handle 10ms event */
 		if(flag_10ms == TRUE)
 		{
 			flag_10ms = FALSE;
@@ -52,15 +72,14 @@ void main()
 				KEY_Process(temp);
 		}
 		
+		/* Handle 100ms event */
 		if(flag_100ms == TRUE)
 		{
 			flag_100ms = FALSE;
-			blink_inside_to_outside();
+			led_mode_handle(mode);
 		}
 	}
-	
 }
-
 
 
 /**
@@ -85,52 +104,53 @@ void TM0_Isr() interrupt 1
 }
 
 
-
 /**
-  * @函数名       KeyProcess
-  * @功  能       按键处理，根据键值来执行相应的操作
-  * @参  数       key_val：键值
-  * @返回值       无
+  * @brief  key process.
+  * @param  key value
+  * @retval None
   */
 void KEY_Process(key_value key_value)
 {
 	switch(key_value)
 	{
-		case KEY1_Pressed:					//KEY1按下（短按）
-			P10 = !P10;
+		case KEY1_Pressed:		//K2 pressed
+			mode = LED_MODE_1;	//LED MODE1 blink
 			break;
 
-		case KEY2_Pressed:					//KEY2按下（短按）
-			P11 = 0;
+		case KEY2_Pressed:		//K3 pressed
+			mode = LED_MODE_2;	//LED MODE1 blink
 			break;
 			
-		case KEY3_Pressed:					//KEY3按下（短按）
-			P12 = 0;
+		case KEY3_Pressed:		//K4 pressed
+			mode = LED_MODE_3;	//LED MODE1 blink
 			break;
 			
-		case KEY4_Pressed:					//KEY4按下（短按） 
-			P13 = 0;
+		case KEY4_Pressed:		//5 pressed
+			mode = LED_MODE_4;	//LED MODE1 blink
 			break;
 			
 			
-		case KEY1_LongPressed:					//KEY1长按
-			P10 = 1;
+		case KEY1_LongPressed:	//K2 long_pressed
+			mode = LED_MODE_0;
+			P1 = 0x00;		//LED all bright
 			break;
 			
-		case KEY2_LongPressed:					//KEY2长按
-			P11 = !P11;
+		case KEY2_LongPressed:	//K3 long_pressed
+			mode = LED_MODE_0;
+			P1 = 0x0f;		//LED lift bright
 			break;
 			
-		case KEY3_LongPressed:					//KEY3长按
-			P12 = 1;
+		case KEY3_LongPressed:	//K4 long_pressed
+			mode = LED_MODE_0;
+			P1 = 0xf0;		//LED right bright
 			break;
 			
-		case KEY4_LongPressed:					//KEY4长按
-			P13 = 1;
+		case KEY4_LongPressed:	//K5 long_pressed
+			mode = LED_MODE_0;
+			P1 = 0xff;		//LED all exterminate
 			break;
-			
 
-		default:								//其他
+		default:				//Other
 			break;
 	}
 }
