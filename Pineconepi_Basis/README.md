@@ -4,7 +4,7 @@
 
 :pushpin: Can copy content directly to project
 
-:pushpin: Service manual
+:pushpin: User guide
 
 
 
